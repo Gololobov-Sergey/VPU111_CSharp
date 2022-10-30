@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 
 
@@ -112,19 +113,75 @@ namespace VPU111_CSharp
             Console.Title = "VPU111";
             //Console.
 
+            /////// 30.10.2022 ///////////
+            ///
+
+
+
+            Employee employee = new Employee("Vasya", new DateTime(2000, 11, 11), 5000);
+            employee.Print();
+            
+
+
+            //Point p = new Point () { X = 5, Y = 6 };
+
+            //p.Print();
+
+            //Point p2 = -p;
+            //p2.Print();
+
+            //(++p).Print();
+            //(p++).Print();
+
+            //Point p3 = new Point() { X = 5, Y = 6 };// + p2;
+           // p.X = 10;
+
+            //p3.Print();
+            //p3.Print();
+
+            //p3 += p;
+            //p3.Print();
+
+            //p3 = p3 * 5;
+            //p3 = 5 * p3;
+            //p3.Print();
+
+            //Console.WriteLine(p3.Equals(p));
+
+            //if(p3 && p)
+            //{
+
+            //}
+
+            //float f = p3;
+
+            //Point p4 = (Point)3.25f;
+
+            //Polygon polygon = new Polygon(10);
+
+            //polygon[1].Print();
+            //polygon["one"] = new Point() { X = 100, Y = 100 };
+            //polygon["one"].Print();
+            //polygon[2,"one"].Print();   
+
+            //if(card == 235)
+            //{
+
+            //}
+
             ////// 23.10.2022 /////////////
             ///
 
 
-            Student student = new Student() 
-            { 
-                Name = "Serg", 
-                Age = 40, 
-                BirthDay = new DateTime(2000, 10, 10)
-            };
+            //Student student = new Student() 
+            //{ 
+            //    Name = "Serg", 
+            //    Age = 40, 
+            //    BirthDay = new DateTime(2000, 10, 10)
+            //};
 
             //student.Age = 30;
-            Console.WriteLine(student.Age);
+            //Console.WriteLine(student.Age);
             //student.SetName("Serg");
 
             //Console.WriteLine(SUM(new int[] {2,3,4,5}));
@@ -144,9 +201,9 @@ namespace VPU111_CSharp
             //Console.WriteLine(a);
 
 
-            MyClass myClass = new MyClass(100);
+            //MyClass myClass = new MyClass(100);
 
-            myClass.METHOD();
+           // myClass.METHOD();
 
             //Console.WriteLine(myClass.y);
             ////myClass.arr = new int[] { 2, 3, 4 };
