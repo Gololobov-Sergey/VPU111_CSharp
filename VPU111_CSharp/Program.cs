@@ -1,8 +1,8 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
-
-
+using System.Collections.Generic;
+using System.Text;
 
 namespace VPU111_CSharp
 {
@@ -111,16 +111,130 @@ namespace VPU111_CSharp
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.Clear();
             Console.Title = "VPU111";
+            Console.OutputEncoding = Encoding.Unicode;
             //Console.
+
+            /////// 06.11.2022 ////////
+
+            Group group = new Group();
+            foreach (Student item in group)
+            {
+                Console.WriteLine(item);
+            }
+            Console.WriteLine();
+
+            //group.Sort(new DateComparer());
+            group.Sort(Student.FromBirthDate);
+            foreach (Student item in group)
+            {
+                Console.WriteLine(item);
+            }
+
+            //MyClass11 myClass11 = new MyClass11();
+            //myClass11.Print();
+
+            //(myClass11 as IB).Print();
+
+
+            //IA ia = new MyClass11();
+            //ia.Print();
+
+
+            //Director director = new Director("Ira", new DateTime(2004, 11, 11), 14000);
+
+            //IWork worker1 = new Seller {
+            //    Name = "Oleg", BirthDat = new DateTime(2000, 10, 10), 
+            //    Salary = 10000, IsWorking = true };
+
+            //IWork worker2 = new Seller
+            //{
+            //    Name = "Olga",
+            //    BirthDat = new DateTime(2000, 10, 10),
+            //    Salary = 11000,
+            //    IsWorking = false
+            //};
+
+            //IWork worker3 = new Seller
+            //{
+            //    Name = "Orest",
+            //    BirthDat = new DateTime(2000, 10, 10),
+            //    Salary = 12000,
+            //    IsWorking = true
+            //};
+
+            //IWork worker4 = new Supervisor
+            //{
+            //    Name = "Valery",
+            //    BirthDat = new DateTime(2000, 10, 10),
+            //    Salary = 14000,
+            //    IsWorking = true
+            //};
+
+            ////Doctor employee = new Doctor("Vasya", new DateTime(2000, 11, 11), 5000);
+
+            //director.Planing();
+            //director.Organize();
+
+            //director.Workers = new List<IWork>();
+            //director.Workers.Add(worker1);
+            //director.Workers.Add(worker2);
+            //director.Workers.Add(worker3);
+            //director.Workers.Add(worker4);
+
+            //foreach (IWork item in director.Workers)
+            //{
+            //    Console.Write((item as Human).Name + " ");
+            //    Console.WriteLine(item.Work());
+            //}
+
+
+            //Human[] humans = { new Employee("Vasya", new DateTime(2012, 11, 11), 5000),
+            //    new Specialist("Ira", new DateTime(2004, 11, 11), 4000),
+            //    new Doctor("Kolya", new DateTime(2008, 11, 11), 6000)
+            //};
+
+            //foreach (var item in humans)
+            //{
+            //    Console.WriteLine(item);
+            //    //item.Work();
+            //    Console.WriteLine();
+
+            //    //try
+            //    //{
+            //    //    ((Employee)item).Print();
+            //    //}
+            //    //catch
+            //    //{
+            //    //}
+
+            //    //Specialist s = item as Specialist;
+            //    //if(s != null)
+            //    //{
+            //    //    s.Print();
+            //    //}
+
+
+            //    //if(item is Doctor)
+            //    //{
+            //    //    Doctor doctor = (Doctor)item;
+            //    //    (item as Doctor).Print();
+            //    //}
+
+            //}
+
+            //Doctor employee = new Doctor("Vasya", new DateTime(2000, 11, 11), 5000);
+            //employee.Print();
+            //Console.WriteLine(employee);
+
 
             /////// 30.10.2022 ///////////
             ///
 
 
 
-            Employee employee = new Employee("Vasya", new DateTime(2000, 11, 11), 5000);
-            employee.Print();
-            
+            //Employee employee = new Employee("Vasya", new DateTime(2000, 11, 11), 5000);
+            //employee.Print();
+
 
 
             //Point p = new Point () { X = 5, Y = 6 };
@@ -134,7 +248,7 @@ namespace VPU111_CSharp
             //(p++).Print();
 
             //Point p3 = new Point() { X = 5, Y = 6 };// + p2;
-           // p.X = 10;
+            // p.X = 10;
 
             //p3.Print();
             //p3.Print();
@@ -203,7 +317,7 @@ namespace VPU111_CSharp
 
             //MyClass myClass = new MyClass(100);
 
-           // myClass.METHOD();
+            // myClass.METHOD();
 
             //Console.WriteLine(myClass.y);
             ////myClass.arr = new int[] { 2, 3, 4 };
