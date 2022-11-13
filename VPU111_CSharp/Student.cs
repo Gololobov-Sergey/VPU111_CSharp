@@ -7,10 +7,15 @@ using System.Threading.Tasks;
 
 namespace VPU111_CSharp
 {
-    class StudentCard : IComparable
+    class StudentCard : IComparable, ICloneable
     {
         public int Number { get; set; }
         public string Series { get; set; }
+
+        public object Clone()
+        {
+            return this.MemberwiseClone();  
+        }
 
         public int CompareTo(object x)
         {
@@ -28,7 +33,7 @@ namespace VPU111_CSharp
         }
     }
 
-    internal class Student : IComparable
+    internal class Student : IComparable, ICloneable
     {
 
         public string FirstName { get; set; }
@@ -55,6 +60,13 @@ namespace VPU111_CSharp
             }
             else
                 throw new NotImplementedException();
+        }
+
+        public object Clone()
+        {
+            Student temp = (Student)this.MemberwiseClone();
+            temp.StudentCard = (StudentCard)StudentCard.Clone();
+            return temp;
         }
     }
 

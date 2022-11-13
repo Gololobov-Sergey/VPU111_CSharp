@@ -3,6 +3,8 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Collections.Generic;
 using System.Text;
+using System.Collections;
+using System.Data;
 
 namespace VPU111_CSharp
 {
@@ -105,6 +107,28 @@ namespace VPU111_CSharp
             return res;
         }
 
+        static int Div(int a, int b)
+        {
+            int res = 0;
+            try
+            {
+                res = a % b;
+            }
+            catch (DivideByZeroException e)
+            {
+
+                throw; /*new DivideByZeroException("Added inform", e);*/
+            }
+            return res;
+        }
+
+        static void SetName(string name333, string n2 = "sd")
+        {
+            if(name333 == null)
+                throw new ArgumentNullException(nameof(name333));
+            Console.WriteLine(name333);
+        }
+
         static void Main(string[] args)
         {
             Console.BackgroundColor = ConsoleColor.DarkBlue;
@@ -114,21 +138,95 @@ namespace VPU111_CSharp
             Console.OutputEncoding = Encoding.Unicode;
             //Console.
 
+            ///// 13.11.2022 /////
+            ///
+
+
+            try
+            {
+
+                SetName(null);
+
+                Console.WriteLine(Div(6, 0));
+                //checked
+                //{
+                    byte b = 100;
+                    b = (byte)(b + 200);
+                    Console.WriteLine(b);
+                //}
+
+                unchecked
+                {
+
+                }
+
+            }
+            catch (DivideByZeroException e) when (e.InnerException != null)
+            {
+                Console.WriteLine(e.Message);
+                Console.WriteLine(e.StackTrace);
+                Console.WriteLine(e.HelpLink);
+                Console.WriteLine(e.TargetSite);
+                foreach (var item in e.Data.Keys)
+                {
+                    Console.WriteLine($"{item} {e.Data[item]}");
+                }
+                Console.WriteLine(e.InnerException?.Message);
+                Console.WriteLine(e.Source);
+                Console.WriteLine(e.HResult);
+
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            catch
+            {
+                Console.WriteLine("Fatal Error");
+            }
+            finally
+            {
+
+            }
+
+
+            //Student st = new Student
+            //{
+            //    FirstName = "Oleg",
+            //    LastName = "Ivanov",
+            //    BirthDay = new DateTime(1990, 2, 12),
+            //    StudentCard = new StudentCard
+            //    {
+            //        Series = "AB",
+            //        Number = 123456
+            //    }
+            //};
+
+            //Student st2 = (Student)st.Clone();
+            //st2.StudentCard.Series = "TT";
+
+            //Console.WriteLine(st);
+            //Console.WriteLine(st2);
+
+
+
+
+
             /////// 06.11.2022 ////////
 
-            Group group = new Group();
-            foreach (Student item in group)
-            {
-                Console.WriteLine(item);
-            }
-            Console.WriteLine();
+            //Group group = new Group();
+            //foreach (Student item in group)
+            //{
+            //    Console.WriteLine(item);
+            //}
+            //Console.WriteLine();
 
-            //group.Sort(new DateComparer());
-            group.Sort(Student.FromBirthDate);
-            foreach (Student item in group)
-            {
-                Console.WriteLine(item);
-            }
+            ////group.Sort(new DateComparer());
+            //group.Sort(Student.FromBirthDate);
+            //foreach (Student item in group)
+            //{
+            //    Console.WriteLine(item);
+            //}
 
             //MyClass11 myClass11 = new MyClass11();
             //myClass11.Print();
