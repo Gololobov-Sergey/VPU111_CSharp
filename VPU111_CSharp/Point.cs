@@ -174,4 +174,28 @@ namespace VPU111_CSharp
 
     }
 
+
+    class Point2D<T> where T : class, /*struct, IComparable<T>,*/ new()
+    {
+        public T X { get; set; }
+        public T Y { get; set; }
+       
+
+        public Point2D()
+        {
+            X = default;
+            Y = default;
+        }
+    }
+
+    class PriQueue<TPri, TVal> : Queue<TVal> where TPri : IComparable
+    {
+       
+    }
+    //class Point3D<T> : Point2D<T>
+    //{
+    //    public T Z { get; set; }
+    //}
+    
+
 }

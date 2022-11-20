@@ -68,6 +68,12 @@ namespace VPU111_CSharp
             temp.StudentCard = (StudentCard)StudentCard.Clone();
             return temp;
         }
+
+        public override int GetHashCode()
+        {
+            return $"{LastName} {FirstName}".GetHashCode();
+
+        }
     }
 
 
@@ -164,4 +170,24 @@ namespace VPU111_CSharp
             throw new NotImplementedException();
         }
     }
+
+
+
+    class GarbageMaker : IDisposable
+    {
+        public void Dispose()
+        {
+            Console.WriteLine("Dispose");
+        }
+
+        public void Make()
+        {
+            for (int i = 0; i < 100000; i++)
+            {
+                Student s = new Student();
+            }
+        }
+    }
 }
+
+

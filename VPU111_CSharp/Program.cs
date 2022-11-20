@@ -122,9 +122,33 @@ namespace VPU111_CSharp
             return res;
         }
 
+        static void SetMark(Hashtable students, string fName, string lName, int mark)
+        {
+            foreach (Student item in students.Keys)
+            {
+                if(item.FirstName == fName && item.LastName == lName)
+                {
+                    (students[item] as ArrayList).Add(mark);
+                }
+            }
+        }
+
+        static void PrintMark(Hashtable students)
+        {
+            foreach (Student item in students.Keys)
+            {
+                Console.Write($"{item.LastName} {item.FirstName} - ");
+                foreach (int marks in students[item] as ArrayList)
+                {
+                    Console.Write(marks + " ");
+                }
+                Console.WriteLine();
+            }
+        }
+
         static void SetName(string name333, string n2 = "sd")
         {
-            if(name333 == null)
+            if (name333 == null)
                 throw new ArgumentNullException(nameof(name333));
             Console.WriteLine(name333);
         }
@@ -138,56 +162,177 @@ namespace VPU111_CSharp
             Console.OutputEncoding = Encoding.Unicode;
             //Console.
 
+            ////   20.11.2022 //////
+            ///
+
+
+            //int count = 10000000;
+            //using(new OperationTimer("ArrayList"))
+            //{
+            //    ArrayList array = new ArrayList();
+            //    for (int i = 0; i < count; i++)
+            //    {
+            //        array.Add(i);
+            //        int x = (int)array[i];
+            //    }
+            //    array = null;
+            //}
+
+
+            //using(new OperationTimer("List"))
+            //{
+            //    List<int> l = new List<int>();
+            //    for (int i = 0; i < count; i++)
+            //    {
+            //        l.Add(i);
+            //        int x = l[i];
+            //    }
+            //    l = null;
+            //}
+
+
+            Student s = new Student { FirstName = "Vasyasdfg", LastName = "Pupsdfgkin" };
+            Console.WriteLine(s.GetHashCode());
+            Student s1 = new Student { FirstName = "Vasya", LastName = "Pupkin" };
+            Console.WriteLine(s1.GetHashCode());
+
+            //Hashtable hashtable = new Hashtable();
+            //hashtable.Add(1, "one");
+            //hashtable.Add("two", 2);
+            //hashtable.Add(s, new Student { FirstName = "Olga", LastName = "Pupkina" });
+            //Console.WriteLine(s.GetHashCode());
+            //foreach (var item in hashtable.Keys)
+            //{
+            //    Console.WriteLine(hashtable[item]);
+            //}
+
+            //SortedList sl = new SortedList();
+            //sl.Add(1, "one");
+            //sl.Add(2, 2);
+            //sl.Add(-4, new Student { FirstName = "Olga", LastName = "Pupkina" });
+            //foreach (var item in sl.Keys)
+            //{
+            //    Console.WriteLine(sl[item]);
+            //}
+
+
+            //Hashtable students = new Hashtable
+            //{
+            //    {
+            //    new Student
+            //        {
+            //            FirstName = "Oleg",
+            //            LastName = "Ivanov",
+            //            BirthDay = new DateTime(1990, 2, 12),
+            //            StudentCard = new StudentCard
+            //            {
+            //                Series = "AB",
+            //                Number = 123456
+            //            }
+            //}, new ArrayList{9,9,9} },
+            //    {
+            //    new Student
+            //        {
+            //            FirstName = "Olga",
+            //            LastName = "Petrova",
+            //            BirthDay = new DateTime(1990, 1, 4),
+            //            StudentCard = new StudentCard
+            //            {
+            //                Series = "AB",
+            //                Number = 123450
+            //            }
+            //    }, new ArrayList{9,9,9} }
+            //};
+
+            //PrintMark(students);
+            //Console.WriteLine();
+            //SetMark(students, "Oleg", "Ivanov", 10);
+            //PrintMark(students);
+            //Console.WriteLine();
+            //SetMark(students, "Olga", "Petrova", 10);
+            //PrintMark(students);
+
+
+
+            //using (GarbageMaker gm = new GarbageMaker())
+            //{
+            //    Console.WriteLine(GC.MaxGeneration);
+
+
+            //    Console.WriteLine(GC.GetGeneration(gm));
+
+            //    Console.WriteLine(GC.GetTotalMemory(false));
+
+            //    gm.Make();
+
+            //    Console.WriteLine(GC.GetGeneration(gm));
+
+            //    Console.WriteLine(GC.GetTotalMemory(false));
+
+            //    GC.Collect();
+
+            //    Console.WriteLine(GC.GetTotalMemory(false));
+
+            //    Console.WriteLine(GC.GetGeneration(gm));
+
+            //    GC.Collect();
+
+            //    Console.WriteLine(GC.GetTotalMemory(false));
+            //    Console.WriteLine(GC.GetGeneration(gm));
+            //}
+
+            //gm.Dispose();
+
             ///// 13.11.2022 /////
             ///
 
 
-            try
-            {
+            //try
+            //{
 
-                SetName(null);
+            //    SetName(null);
 
-                Console.WriteLine(Div(6, 0));
-                //checked
-                //{
-                    byte b = 100;
-                    b = (byte)(b + 200);
-                    Console.WriteLine(b);
-                //}
+            //    Console.WriteLine(Div(6, 0));
+            //    //checked
+            //    //{
+            //        byte b = 100;
+            //        b = (byte)(b + 200);
+            //        Console.WriteLine(b);
+            //    //}
 
-                unchecked
-                {
+            //    unchecked
+            //    {
 
-                }
+            //    }
 
-            }
-            catch (DivideByZeroException e) when (e.InnerException != null)
-            {
-                Console.WriteLine(e.Message);
-                Console.WriteLine(e.StackTrace);
-                Console.WriteLine(e.HelpLink);
-                Console.WriteLine(e.TargetSite);
-                foreach (var item in e.Data.Keys)
-                {
-                    Console.WriteLine($"{item} {e.Data[item]}");
-                }
-                Console.WriteLine(e.InnerException?.Message);
-                Console.WriteLine(e.Source);
-                Console.WriteLine(e.HResult);
+            //}
+            //catch (DivideByZeroException e) when (e.InnerException != null)
+            //{
+            //    Console.WriteLine(e.Message);
+            //    Console.WriteLine(e.StackTrace);
+            //    Console.WriteLine(e.HelpLink);
+            //    Console.WriteLine(e.TargetSite);
+            //    foreach (var item in e.Data.Keys)
+            //    {
+            //        Console.WriteLine($"{item} {e.Data[item]}");
+            //    }
+            //    Console.WriteLine(e.InnerException?.Message);
+            //    Console.WriteLine(e.Source);
+            //    Console.WriteLine(e.HResult);
 
-            }
-            catch(Exception e)
-            {
-                Console.WriteLine(e.Message);
-            }
-            catch
-            {
-                Console.WriteLine("Fatal Error");
-            }
-            finally
-            {
+            //}
+            //catch(Exception e)
+            //{
+            //    Console.WriteLine(e.Message);
+            //}
+            //catch
+            //{
+            //    Console.WriteLine("Fatal Error");
+            //}
+            //finally
+            //{
 
-            }
+            //}
 
 
             //Student st = new Student
