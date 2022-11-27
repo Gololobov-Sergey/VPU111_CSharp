@@ -7,24 +7,21 @@ using System.Threading.Tasks;
 
 namespace VPU111_CSharp
 {
-    class StudentCard : IComparable, ICloneable
+    class StudentCard : IComparable<StudentCard>, ICloneable
     {
         public int Number { get; set; }
         public string Series { get; set; }
 
         public object Clone()
         {
-            return this.MemberwiseClone();  
+            return this.MemberwiseClone();
         }
 
-        public int CompareTo(object x)
+        public int CompareTo(StudentCard x)
         {
-            StudentCard sc = (StudentCard)x;   
-            if (sc != null)
-            {
-                return (Series + Number.ToString()).CompareTo(sc.Series + sc.Number.ToString());
-            }
-            throw new NotImplementedException();
+
+            return (Series + Number.ToString()).CompareTo(x.Series + x.Number.ToString());
+
         }
 
         public override string ToString()
@@ -33,7 +30,7 @@ namespace VPU111_CSharp
         }
     }
 
-    internal class Student : IComparable, ICloneable
+    internal class Student : IComparable<Student>, ICloneable
     {
 
         public string FirstName { get; set; }
@@ -44,22 +41,21 @@ namespace VPU111_CSharp
 
         public StudentCard StudentCard { get; set; }
 
-        public static IComparer FromBirthDate { get { return new DateComparer(); } }
+        public static IComparer<Student> FromBirthDate { get { return new DateComparer(); } }
+
+        public Student()
+        {
+
+        }
 
         public override string ToString()
         {
             return $"{LastName.PadRight(15)} {FirstName.PadRight(10)} {BirthDay.ToShortDateString()} {StudentCard}";
         }
 
-        public int CompareTo(object obj)
+        public int CompareTo(Student obj)
         {
-            Student student = obj as Student;
-            if (student != null)
-            {
-                return LastName.CompareTo(student.LastName);
-            }
-            else
-                throw new NotImplementedException();
+            return LastName.CompareTo(obj.LastName);
         }
 
         public object Clone()
@@ -77,7 +73,7 @@ namespace VPU111_CSharp
     }
 
 
-    class Group : IEnumerable
+    class Group /*: IEnumerable*/
     {
         Student[] students =
         {
@@ -127,7 +123,7 @@ namespace VPU111_CSharp
             }
         };
 
-        
+
 
         public void Sort()
         {
@@ -139,35 +135,66 @@ namespace VPU111_CSharp
             Array.Sort(students, comparer);
         }
 
-        IEnumerator IEnumerable.GetEnumerator()
+        //IEnumerator IEnumerable.GetEnumerator()
+        //{
+        //    return students.GetEnumerator();
+        //}
+
+
+        public IEnumerator<Student> GetEnumerator()
         {
-            return students.GetEnumerator();
+            for (int i = 0; i < students.Length; i++)
+            {
+                yield return students[i];
+            }
+        }
+
+        public IEnumerable<Student> GetStudentsTop3()
+        {
+            for (int i = 0; i < students.Length; i++)
+            {
+                if(i == 3)
+                {
+                    yield break;
+                }
+                yield return students[i];
+            }
         }
     }
 
 
-    class DateComparer : IComparer
+    class DateComparer : IComparer<Student>
     {
-        public int Compare(object x, object y)
+        //public int Compare(object x, object y)
+        //{
+        //    if(x is Student && y is Student)
+        //    {
+        //        return (x as Student).BirthDay.CompareTo((y as Student).BirthDay);
+        //    }
+        //    throw new NotImplementedException();
+        //}
+
+        public int Compare(Student x, Student y)
         {
-            if(x is Student && y is Student)
-            {
-                return (x as Student).BirthDay.CompareTo((y as Student).BirthDay);
-            }
-            throw new NotImplementedException();
+            return x.BirthDay.CompareTo(y.BirthDay);
         }
     }
 
 
-    class StudentCardComparer : IComparer
+    class StudentCardComparer : IComparer<Student>
     {
-        public int Compare(object x, object y)
+        //public int Compare(object x, object y)
+        //{
+        //    if (x is Student && y is Student)
+        //    {
+        //        return (x as Student).StudentCard.CompareTo((y as Student).StudentCard);
+        //    }
+        //    throw new NotImplementedException();
+        //}
+
+        public int Compare(Student x, Student y)
         {
-            if (x is Student && y is Student)
-            {
-                return (x as Student).StudentCard.CompareTo((y as Student).StudentCard);
-            }
-            throw new NotImplementedException();
+            return x.StudentCard.CompareTo(y.StudentCard);
         }
     }
 

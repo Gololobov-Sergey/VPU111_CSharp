@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Collections;
 using System.Data;
+using static VPU111_CSharp.Program;
 
 namespace VPU111_CSharp
 {
@@ -112,7 +113,7 @@ namespace VPU111_CSharp
             int res = 0;
             try
             {
-                res = a % b;
+                res = a / b;
             }
             catch (DivideByZeroException e)
             {
@@ -121,6 +122,8 @@ namespace VPU111_CSharp
             }
             return res;
         }
+
+
 
         static void SetMark(Hashtable students, string fName, string lName, int mark)
         {
@@ -153,6 +156,59 @@ namespace VPU111_CSharp
             Console.WriteLine(name333);
         }
 
+
+        static T Max<T>(T[] array) where T : IComparable<T>
+        {
+            T max = array[0];
+            foreach (T item in array)
+            {
+                if (item.CompareTo(max) > 0)
+                {
+                    max = item;
+                }
+            }
+            return max;
+        }
+
+
+        //public delegate int IntDelegate(int a, int b);
+        //public delegate double DoubleDelegate(double a, double b);
+        public delegate int IntDelegate1(int a);
+        public delegate int IntDelegate2();
+        public delegate void VoidDelegate();
+        public delegate void VoidDelegate1(int a);
+        public delegate void VoidDelegate2(Student a);
+
+        public delegate T GenericDelegate<T>(T a, T b);
+        public delegate T GenericDelegateAttay<T>(T[] a);
+
+        public delegate T3 GenericDelegate<T3, T1, T2>(T1 a, T1 b);
+
+        static void PrintNameStudent(Student s)
+        {
+            Console.WriteLine($"{s.FirstName} {s.LastName}");
+        }
+
+        static void PrintStudentCard(Student s)
+        {
+            Console.WriteLine($"{s.StudentCard.Series} {s.StudentCard.Number}");
+        }
+
+        static bool Is84(Student s)
+        {
+            return s.BirthDay.Year > 1984;
+        }
+
+        //static decimal AvgAge(Student s)
+        //{
+        //    return DateTime.Now.Year - s.BirthDay.Year;
+        //}
+
+        static DateTime getDate(Student s)
+        {
+            return s.BirthDay;
+        }
+
         static void Main(string[] args)
         {
             Console.BackgroundColor = ConsoleColor.DarkBlue;
@@ -162,8 +218,144 @@ namespace VPU111_CSharp
             Console.OutputEncoding = Encoding.Unicode;
             //Console.
 
+            //// 27.11.2022 //////
+            ///
+
+
+            List<Student> students = new List<Student>()
+            {
+                new Student
+                {
+                    FirstName = "Oleg",
+                    LastName = "Ivanov",
+                    BirthDay = new DateTime(1990, 2, 12),
+                    StudentCard = new StudentCard
+                    {
+                        Series = "AB",
+                        Number = 123456
+                    }
+                },
+                new Student
+                {
+                    FirstName = "Olga",
+                    LastName = "Petrova",
+                    BirthDay = new DateTime(1990, 1, 4),
+                    StudentCard = new StudentCard
+                    {
+                        Series = "AB",
+                        Number = 123450
+                    }
+                },
+                new Student
+                {
+                    FirstName = "Petro",
+                    LastName = "Fedoriv",
+                    BirthDay = new DateTime(1993, 1, 14),
+                    StudentCard = new StudentCard
+                    {
+                        Series = "AC",
+                        Number = 123456
+                    }
+                },
+                new Student
+                {
+                    FirstName = "Irina",
+                    LastName = "Frolova",
+                    BirthDay = new DateTime(1983, 5, 8),
+                    StudentCard = new StudentCard
+                    {
+                        Series = "AA",
+                        Number = 123456
+                    }
+                }
+            };
+
+            foreach (Student item in students)
+            {
+                Console.WriteLine(item);
+            }
+
+
+            students.ForEach(PrintStudentCard);
+
+            Console.WriteLine(students.All(Is84));
+
+            Console.WriteLine(students.Average(s => DateTime.Now.Year - s.BirthDay.Year));
+
+            Console.WriteLine(students.Count(s => s.BirthDay.Month== 1));
+
+        
+            students.ForEach(s => { if (s.BirthDay.Month == 1) Console.WriteLine(s); });
+
+            //var ddd = students.Select(s => s.BirthDay).ToList();
+            var ddd = students.Select(getDate).ToList();
+            foreach (var item in ddd)
+            {
+                Console.WriteLine(item);
+            }
+
+            students
+                .FindAll(s => s.BirthDay.Month == 1)
+                .ForEach(s => Console.WriteLine(s));
+
+            students.Sort((s1, s2) => s1.BirthDay.CompareTo(s2.BirthDay));
+
+            students.ForEach(s =>  Console.WriteLine(s));
+
+            //Calc calc = new Calc();
+
+            GenericDelegate<int> d = null;
+            GenericDelegateAttay<int> d11 = Max;
+            Func<int[], int> d2 = Max;
+            //IntDelegate d = null;
+            GenericDelegate<int> d1 = null;
+            d1 = Div;
+
+            Action action = new Action(()=>Console.WriteLine("Error"));
+            action();
+            action();
+            action();
+            action();
+
+            //d += Calc.Diff;
+            //d += calc.Sum;
+            //d += calc.Sum;
+            //d += calc.Sum;
+            //Console.WriteLine(d(9, 3));
+
+            //foreach (GenericDelegate<int> item in d.GetInvocationList())
+            //{
+            //    if (item == calc.Sum)
+            //        Console.WriteLine(item(9, 3));
+            //}
+            //Console.WriteLine();
+
+            //d -= Calc.Diff;
+            //d -= Calc.Diff;
+
+            //foreach (GenericDelegate<int> item in d.GetInvocationList())
+            //{
+            //    Console.WriteLine(item(9, 3));
+            //}
+
+            //d = null;
+
+            //GenericDelegateAttay<int> dd = new GenericDelegateAttay<int>(Max<int>);
+
+            //Group group = new Group();
+            //foreach (Student item in group.GetStudentsTop3())
+            //{
+            //    Console.WriteLine(item);
+            //}
+            //Console.WriteLine();
+
+
             ////   20.11.2022 //////
             ///
+
+
+            //Point2D<Student> point3D = new Point2D<Student>();
+
 
 
             //int count = 10000000;
@@ -191,10 +383,10 @@ namespace VPU111_CSharp
             //}
 
 
-            Student s = new Student { FirstName = "Vasyasdfg", LastName = "Pupsdfgkin" };
-            Console.WriteLine(s.GetHashCode());
-            Student s1 = new Student { FirstName = "Vasya", LastName = "Pupkin" };
-            Console.WriteLine(s1.GetHashCode());
+            //Student s = new Student { FirstName = "Vasyasdfg", LastName = "Pupsdfgkin" };
+            //Console.WriteLine(s.GetHashCode());
+            //Student s1 = new Student { FirstName = "Vasya", LastName = "Pupkin" };
+            //Console.WriteLine(s1.GetHashCode());
 
             //Hashtable hashtable = new Hashtable();
             //hashtable.Add(1, "one");
