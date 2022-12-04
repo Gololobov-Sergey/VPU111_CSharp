@@ -70,8 +70,74 @@ namespace VPU111_CSharp
             return $"{LastName} {FirstName}".GetHashCode();
 
         }
+
+        //public void Exam(DateTime dateExam)
+        //{
+        //    Console.WriteLine($"Екзамен для {LastName} {FirstName} назначено на {dateExam.ToShortDateString()}") ;
+        //}
+
+        public void Exam(object sender, ExamEventArgs e)
+        {
+            Console.WriteLine($"Екзамен від {((Teacher)sender).Name} по {e.Subject} для {LastName} {FirstName} назначено на {e.DateExam.ToShortDateString()}");
+        }
     }
 
+    //public delegate void ExamDelegate(DateTime dt);
+
+    class ExamEventArgs : EventArgs
+    {
+        public DateTime DateExam { get; set; }
+
+        public string Subject { get; set; }
+    }
+
+
+
+    class Teacher
+    {
+        SortedList<string, EventHandler<ExamEventArgs>> list = new SortedList<string, EventHandler<ExamEventArgs>>();
+
+        public event EventHandler<ExamEventArgs> ExamEvent
+        {
+            add
+            {
+                list.Add(((Student)value.Target).FirstName, value);
+            }
+
+            remove
+            {
+                list.Remove(((Student)value.Target).FirstName);
+            }
+        }
+
+        public string Name { get; set; }
+
+        public void SetExam(ExamEventArgs e)
+        {
+            //if (ExamEvent != null)
+            //{
+            //    ExamEvent(this, e);
+            //}
+
+            foreach (var item in list.Keys)
+            {
+                list[item](this, e);
+            }
+        }
+
+
+
+
+        //public event ExamDelegate ExamEvent;
+
+        //public void SetExam(string dateExam)
+        //{
+        //    if(ExamEvent != null)
+        //    {
+        //        ExamEvent(DateTime.Parse(dateExam));
+        //    }
+        //}
+    }
 
     class Group /*: IEnumerable*/
     {

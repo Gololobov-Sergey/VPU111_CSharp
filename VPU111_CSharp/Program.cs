@@ -129,7 +129,7 @@ namespace VPU111_CSharp
         {
             foreach (Student item in students.Keys)
             {
-                if(item.FirstName == fName && item.LastName == lName)
+                if (item.FirstName == fName && item.LastName == lName)
                 {
                     (students[item] as ArrayList).Add(mark);
                 }
@@ -184,6 +184,8 @@ namespace VPU111_CSharp
 
         public delegate T3 GenericDelegate<T3, T1, T2>(T1 a, T1 b);
 
+        public event VoidDelegate NameEvent;
+
         static void PrintNameStudent(Student s)
         {
             Console.WriteLine($"{s.FirstName} {s.LastName}");
@@ -217,6 +219,50 @@ namespace VPU111_CSharp
             Console.Title = "VPU111";
             Console.OutputEncoding = Encoding.Unicode;
             //Console.
+
+            ////////  04.12.2022 /////
+            ///
+
+            //Console.WriteLine("mama".MultiString(3));
+
+           // int[] arr = { 10, 4, 2, 3, 5, 6, 6, 7, 6, 43, 34, 56, 7, 87, 654, 32 };
+
+           // string[] st = { "qwertyutre, rtfhyhjgf", "retyu rtyu dfghjkuiy,", "retyu fdghj ytuio0" };
+
+           // var s = from i in st
+           //         let words = i.Split(", ".ToCharArray(), StringSplitOptions.TrimEntries)
+           //         from w in words
+           //         where w.Length > 5
+           //         select w;
+
+           ////var ss = st.ToList().ForEach(s => s.Split(", ".ToCharArray()).Select(s1=>s1.Length>5));
+
+           // var q = from i in arr
+           //          where i % 2 == 0
+           //             //orderby i
+           //             //select i;
+           //         orderby i % 10
+           //         group i by i % 10 into res
+           //         where res.Count() > 2
+           //         select res;
+
+
+           // arr[0] = 999;
+
+            //foreach (var item in q)
+            //{
+            //    Console.Write(item.Key + " : ");
+            //    foreach (var i in item)
+            //    {
+            //        Console.Write(i + " ");
+            //    }
+            //    Console.WriteLine();
+            //}
+
+            //foreach (var i in s)
+            //{
+            //    Console.Write(i + " ");
+            //}
 
             //// 27.11.2022 //////
             ///
@@ -270,52 +316,94 @@ namespace VPU111_CSharp
                 }
             };
 
-            foreach (Student item in students)
+
+            var stud = from s in students
+                       where s.BirthDay.Month == 1
+                       select s;
+
+
+            var nsc = from s in students
+                      select new { Name = s.FirstName + " " + s.LastName, NumberSC = s.StudentCard.Number };
+
+
+
+            foreach (var item in nsc)
             {
                 Console.WriteLine(item);
             }
 
+            //Teacher teacher = new Teacher { Name = "Gololobov SA"};
+            //foreach (Student item in students)
+            //{
+            //    teacher.ExamEvent += item.Exam;
+            //}
 
-            students.ForEach(PrintStudentCard);
+            //teacher.SetExam(new ExamEventArgs { Subject = "C#", DateExam = DateTime.Now});
 
-            Console.WriteLine(students.All(Is84));
 
-            Console.WriteLine(students.Average(s => DateTime.Now.Year - s.BirthDay.Year));
+            //teacher.ExamEvent -= students[2].Exam;
 
-            Console.WriteLine(students.Count(s => s.BirthDay.Month== 1));
+            //Console.WriteLine();
 
-        
-            students.ForEach(s => { if (s.BirthDay.Month == 1) Console.WriteLine(s); });
+            //teacher.SetExam(new ExamEventArgs { Subject = "C#", DateExam = new DateTime(2022, 12, 31) });
 
-            //var ddd = students.Select(s => s.BirthDay).ToList();
-            var ddd = students.Select(getDate).ToList();
-            foreach (var item in ddd)
-            {
-                Console.WriteLine(item);
-            }
+            //teacher.ExamEvent += Teacher_ExamEvent;
 
-            students
-                .FindAll(s => s.BirthDay.Month == 1)
-                .ForEach(s => Console.WriteLine(s));
 
-            students.Sort((s1, s2) => s1.BirthDay.CompareTo(s2.BirthDay));
 
-            students.ForEach(s =>  Console.WriteLine(s));
+            //IntDelegate1 intDelegate = null;
 
-            //Calc calc = new Calc();
+            //intDelegate += delegate (int a) { Console.WriteLine(a); return a; };
 
-            GenericDelegate<int> d = null;
-            GenericDelegateAttay<int> d11 = Max;
-            Func<int[], int> d2 = Max;
-            //IntDelegate d = null;
-            GenericDelegate<int> d1 = null;
-            d1 = Div;
+            //Console.WriteLine(intDelegate(100));
 
-            Action action = new Action(()=>Console.WriteLine("Error"));
-            action();
-            action();
-            action();
-            action();
+
+            ////delegate () { };
+
+            //intDelegate += w => { Console.WriteLine(w+w); return w*w; };
+
+            //Console.WriteLine(intDelegate(100));
+
+            //students.ForEach(PrintStudentCard);
+
+            //Console.WriteLine(students.All(Is84));
+
+            //Console.WriteLine(students.Average(s => DateTime.Now.Year - s.BirthDay.Year));
+
+            //Console.WriteLine(students.Count(s => s.BirthDay.Month== 1));
+
+
+            //students.ForEach(s => { if (s.BirthDay.Month == 1) Console.WriteLine(s); });
+
+            ////var ddd = students.Select(s => s.BirthDay).ToList();
+            //var ddd = students.Select(getDate).ToList();
+            //foreach (var item in ddd)
+            //{
+            //    Console.WriteLine(item);
+            //}
+
+            //students
+            //    .FindAll(s => s.BirthDay.Month == 1)
+            //    .ForEach(s => Console.WriteLine(s));
+
+            //students.Sort((s1, s2) => s1.BirthDay.CompareTo(s2.BirthDay));
+
+            //students.ForEach(s =>  Console.WriteLine(s));
+
+            ////Calc calc = new Calc();
+
+            //GenericDelegate<int> d = null;
+            //GenericDelegateAttay<int> d11 = Max;
+            //Func<int[], int> d2 = Max;
+            ////IntDelegate d = null;
+            //GenericDelegate<int> d1 = null;
+            //d1 = Div;
+
+            //Action action = new Action(()=>Console.WriteLine("Error"));
+            //action();
+            //action();
+            //action();
+            //action();
 
             //d += Calc.Diff;
             //d += calc.Sum;
@@ -887,6 +975,11 @@ namespace VPU111_CSharp
 
 
             Console.ReadKey();
+        }
+
+        private static void Teacher_ExamEvent(object sender, ExamEventArgs e)
+        {
+            throw new NotImplementedException();
         }
     }
 }
