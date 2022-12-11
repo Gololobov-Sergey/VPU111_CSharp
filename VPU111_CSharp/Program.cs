@@ -6,6 +6,9 @@ using System.Text;
 using System.Collections;
 using System.Data;
 using static VPU111_CSharp.Program;
+using System.IO;
+using System.Diagnostics.CodeAnalysis;
+using System.Text.RegularExpressions;
 
 namespace VPU111_CSharp
 {
@@ -220,34 +223,189 @@ namespace VPU111_CSharp
             Console.OutputEncoding = Encoding.Unicode;
             //Console.
 
+            //   .
+            //   \w
+            //   \W
+            //   \s
+            //   \S
+            //   \d
+            //   \D
+            //   [a-z, A-Z]
+            //   [^abc]
+            //   *   - 0...bagato
+            //   +   - 1...bagato
+            //   ?   - 0 - 1
+            //   {n}
+            //   {m, n}
+            //   {n,}
+            //   ^
+            //   $
+
+
+            string patternInt = @"^(\d)+$";
+            string patternDouble = @"^(\d)+[.,]?(\d){1,7}$";
+            string patternPhone = @"^\+38\(0(50)|(66)\)(\d){3}\-(\d){2}\-(\d){2}$";
+            string patternName = @"^[A-Z][a-z]*(-[A-Z][a-z]*)*$";
+
+
+            Regex regex = new Regex(patternName);
+            while(true)
+            {
+                bool res = regex.IsMatch(Console.ReadLine());
+                Console.WriteLine(res?"Correct":"Not correct");
+            }
+
+            ////// 11.12.2022 //////////
+            ///
+
+            //Student st = new Student
+            //{
+            //    FirstName = "Oleg III",
+            //    LastName = "Ivanov",
+            //    BirthDay = new DateTime(1990, 2, 12),
+            //    StudentCard = new StudentCard
+            //    {
+            //        Series = "AB",
+            //        Number = 123456
+            //    }
+            //};
+
+
+            //// bytes
+
+            //using (FileStream fs = new FileStream("info.bin", FileMode.Create, FileAccess.Write, FileShare.None))
+            //{
+            //    //string str = Console.ReadLine();
+
+            //    StringBuilder stringBuilder= new StringBuilder();
+            //    stringBuilder.Append(st.FirstName + "\n");
+            //    stringBuilder.Append(st.LastName + "\n");
+            //    stringBuilder.Append(st.BirthDay.ToShortDateString() + "\n");
+            //    stringBuilder.Append(st.StudentCard.Series + "\n");
+            //    stringBuilder.Append(st.StudentCard.Number + "\n");
+
+            //    byte[] bytes = Encoding.Unicode.GetBytes(stringBuilder.ToString());
+            //    fs.Write(bytes, 0, bytes.Length);
+            //}
+
+
+            //using (FileStream fs = new FileStream("info.bin", FileMode.Open, FileAccess.Read, FileShare.Read))
+            //{
+            //    byte[] bytes = new byte[fs.Length];
+            //    fs.Read(bytes, 0, bytes.Length);
+            //    Console.WriteLine(Encoding.Unicode.GetString(bytes));
+            //}
+
+
+            ///// texts
+            ///
+            //using (FileStream fs = new FileStream("info.txt", FileMode.Create, FileAccess.Write, FileShare.None))
+            //{
+            //    using (StreamWriter sw = new StreamWriter(fs, Encoding.Unicode))
+            //    {
+            //        sw.WriteLine(st);
+            //    }
+            //}
+
+
+            //using (FileStream fs = new FileStream("info.txt", FileMode.Open, FileAccess.Read, FileShare.None))
+            //{
+            //    using (StreamReader sr = new StreamReader(fs, Encoding.Unicode))
+            //    {
+            //        Console.WriteLine(sr.ReadToEnd());
+            //    }
+            //}
+
+
+            ////bynary
+            //using (FileStream fs = new FileStream("info1.bin", FileMode.Create, FileAccess.Write, FileShare.None))
+            //{
+            //    using (BinaryWriter bw = new BinaryWriter(fs, Encoding.Unicode))
+            //    {
+            //        bw.Write(st.FirstName);
+            //        bw.Write(st.LastName);
+            //        bw.Write(st.BirthDay.ToShortDateString());
+            //        bw.Write(st.StudentCard.Series);
+            //        bw.Write(st.StudentCard.Number);
+            //    }
+            //}
+
+
+            //using (FileStream fs = new FileStream("info1.bin", FileMode.Open, FileAccess.Read, FileShare.None))
+            //{
+            //    using (BinaryReader bw = new BinaryReader(fs, Encoding.Unicode))
+            //    {
+            //        Student st1 = new Student
+            //        {
+            //            FirstName = bw.ReadString(),
+            //            LastName = bw.ReadString(),
+            //            BirthDay = Convert.ToDateTime(bw.ReadString()),
+            //            StudentCard = new StudentCard
+            //            {
+            //                Series = bw.ReadString(),
+            //                Number = bw.ReadInt32()
+            //            }
+            //        };
+
+            //        Console.WriteLine(st1);
+            //    }
+            //}
+
+
+            //DirectoryInfo d = new DirectoryInfo(Directory.GetCurrentDirectory());
+            //Console.WriteLine(d.Name);
+            //Console.WriteLine(d.Root);
+            //Console.WriteLine(d.Parent);
+            //d.CreateSubdirectory("Dir1");
+            //DirectoryInfo[] dirs = d.GetDirectories();
+            //FileInfo[] files = d.GetFiles();
+            //List<string> list = new List<string>();
+            //foreach (DirectoryInfo item in dirs)
+            //{
+            //    list.Add(item.Name);
+            //}
+            //foreach ( FileInfo file in files )
+            //{
+            //    list.Add(file.Name+ " " + file.Attributes);
+            //}
+
+            //int a = ConsoleMenu.SelectVertical(HPosition.Left, 
+            //                                    VPosition.Top, 
+            //                                    HorizontalAlignment.Left, 
+            //                                    list);
+
+            //Console.WriteLine((files[2].Attributes & FileAttributes.Hidden) == FileAttributes.Hidden);
+
+            //File.WriteAllText("sdfgh.txt", "Hello");
+
             ////////  04.12.2022 /////
             ///
 
             //Console.WriteLine("mama".MultiString(3));
 
-           // int[] arr = { 10, 4, 2, 3, 5, 6, 6, 7, 6, 43, 34, 56, 7, 87, 654, 32 };
+            // int[] arr = { 10, 4, 2, 3, 5, 6, 6, 7, 6, 43, 34, 56, 7, 87, 654, 32 };
 
-           // string[] st = { "qwertyutre, rtfhyhjgf", "retyu rtyu dfghjkuiy,", "retyu fdghj ytuio0" };
+            // string[] st = { "qwertyutre, rtfhyhjgf", "retyu rtyu dfghjkuiy,", "retyu fdghj ytuio0" };
 
-           // var s = from i in st
-           //         let words = i.Split(", ".ToCharArray(), StringSplitOptions.TrimEntries)
-           //         from w in words
-           //         where w.Length > 5
-           //         select w;
+            // var s = from i in st
+            //         let words = i.Split(", ".ToCharArray(), StringSplitOptions.TrimEntries)
+            //         from w in words
+            //         where w.Length > 5
+            //         select w;
 
-           ////var ss = st.ToList().ForEach(s => s.Split(", ".ToCharArray()).Select(s1=>s1.Length>5));
+            ////var ss = st.ToList().ForEach(s => s.Split(", ".ToCharArray()).Select(s1=>s1.Length>5));
 
-           // var q = from i in arr
-           //          where i % 2 == 0
-           //             //orderby i
-           //             //select i;
-           //         orderby i % 10
-           //         group i by i % 10 into res
-           //         where res.Count() > 2
-           //         select res;
+            // var q = from i in arr
+            //          where i % 2 == 0
+            //             //orderby i
+            //             //select i;
+            //         orderby i % 10
+            //         group i by i % 10 into res
+            //         where res.Count() > 2
+            //         select res;
 
 
-           // arr[0] = 999;
+            // arr[0] = 999;
 
             //foreach (var item in q)
             //{
@@ -317,20 +475,20 @@ namespace VPU111_CSharp
             };
 
 
-            var stud = from s in students
-                       where s.BirthDay.Month == 1
-                       select s;
+            //var stud = from s in students
+            //           where s.BirthDay.Month == 1
+            //           select s;
 
 
-            var nsc = from s in students
-                      select new { Name = s.FirstName + " " + s.LastName, NumberSC = s.StudentCard.Number };
+            //var nsc = from s in students
+            //          select new { Name = s.FirstName + " " + s.LastName, NumberSC = s.StudentCard.Number };
 
 
 
-            foreach (var item in nsc)
-            {
-                Console.WriteLine(item);
-            }
+            //foreach (var item in nsc)
+            //{
+            //    Console.WriteLine(item);
+            //}
 
             //Teacher teacher = new Teacher { Name = "Gololobov SA"};
             //foreach (Student item in students)

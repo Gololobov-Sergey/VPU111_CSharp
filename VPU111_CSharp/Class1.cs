@@ -14,7 +14,7 @@ namespace VPU111_CSharp
         public int Div(int a, int b) => a / b;
     }
 
-    static class ExtensionMethod
+    static partial class ExtensionMethod
     {
         public static string MultiString(this string data, int n)
         {
