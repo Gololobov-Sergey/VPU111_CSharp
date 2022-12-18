@@ -2,16 +2,21 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace VPU111_CSharp
 {
-    class StudentCard : IComparable<StudentCard>, ICloneable
+    [Programmer]
+    [Serializable]
+    public class StudentCard : IComparable<StudentCard>, ICloneable
     {
         public int Number { get; set; }
         public string Series { get; set; }
 
+
+        [Programmer("Vasya", "2022-05-20")]
         public object Clone()
         {
             return this.MemberwiseClone();
@@ -30,9 +35,11 @@ namespace VPU111_CSharp
         }
     }
 
-    internal class Student : IComparable<Student>, ICloneable
+    [Serializable]
+    public class Student : IComparable<Student>, ICloneable
     {
-
+        //[NonSerialized]
+        private string Academy  = "IT STEP";
         public string FirstName { get; set; }
 
         public string LastName { get; set; }
@@ -80,11 +87,25 @@ namespace VPU111_CSharp
         {
             Console.WriteLine($"Екзамен від {((Teacher)sender).Name} по {e.Subject} для {LastName} {FirstName} назначено на {e.DateExam.ToShortDateString()}");
         }
+
+        [OnSerializing]
+        private void OnSerializing(StreamingContext context)
+        {
+            FirstName = FirstName.Xn(2);
+            BirthDay = BirthDay.ToUniversalTime();
+        }
+
+        [OnDeserialized]
+        private void OnDeserialized(StreamingContext context)
+        {
+            FirstName = FirstName.Div(2);
+            BirthDay = BirthDay.ToLocalTime();
+        }
     }
 
     //public delegate void ExamDelegate(DateTime dt);
 
-    class ExamEventArgs : EventArgs
+    public class ExamEventArgs : EventArgs
     {
         public DateTime DateExam { get; set; }
 

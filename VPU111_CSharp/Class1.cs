@@ -26,4 +26,30 @@ namespace VPU111_CSharp
             return d;
         }
     }
+
+
+    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method)]
+    class ProgrammerAttribute : Attribute
+    {
+        public string Name { get; set; } = "Serg";
+
+        public DateTime Date { get; set; } = DateTime.Now;
+
+
+        public ProgrammerAttribute()
+        {
+
+        }
+
+        public ProgrammerAttribute(string name, string date)
+        {
+            Name = name;
+            Date = Convert.ToDateTime(date);
+        }
+
+        public override string ToString()
+        {
+            return $"Programmer: {Name}, DateCreate: {Date}";
+        }
+    }
 }

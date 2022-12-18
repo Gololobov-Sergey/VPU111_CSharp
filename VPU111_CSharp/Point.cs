@@ -3,12 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Data.Common;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace VPU111_CSharp
 {
-    internal class Point
+    [Serializable]
+    public class Point : ISerializable
     {
         public int X { get; set; }
         public int Y { get; set; }
@@ -18,6 +20,17 @@ namespace VPU111_CSharp
             Console.WriteLine($"X = {X}, Y = {Y}");
         }
 
+        public Point()
+        {
+
+        }
+
+        private Point(SerializationInfo info, StreamingContext context)
+        {
+            X = info.GetInt32("X_Param");
+            Y = info.GetInt32("Y_Param");
+            Console.WriteLine( $"Time: {info.GetDateTime("TimeSerialized")}");
+        }
 
         public static Point operator -(Point p)
         {
@@ -55,6 +68,13 @@ namespace VPU111_CSharp
         public override bool Equals(object obj)
         {
             return X == (obj as Point).X && Y == (obj as Point).Y;
+        }
+
+        void ISerializable.GetObjectData(SerializationInfo info, StreamingContext context)
+        {
+            info.AddValue("X_Param", X);
+            info.AddValue("Y_Param", Y);
+            info.AddValue("TimeSerialized", DateTime.Now);
         }
 
         public static bool operator==(Point p1, Point p2)

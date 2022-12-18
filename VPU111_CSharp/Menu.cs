@@ -20,6 +20,17 @@ namespace VPU111_CSharp
             return result;
         }
 
+
+        public static string Div(this string data, int n)
+        {
+            string result = "";
+            for (int i = 0; i < data.Length/n; i++)
+            {
+                result += data[i];
+            }
+            return result;
+        }
+
         public static string PadCenter(this string data, int totalWidth)
         {
             int lenSpace = (totalWidth - data.Length <= 0) ? 0 : totalWidth - data.Length;
@@ -51,6 +62,8 @@ namespace VPU111_CSharp
     {
         Center, Top, Bottom
     };
+
+    
     static class ConsoleMenu
     {
         public static int SelectVertical(HPosition hPos, VPosition vPos,

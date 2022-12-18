@@ -9,6 +9,8 @@ using static VPU111_CSharp.Program;
 using System.IO;
 using System.Diagnostics.CodeAnalysis;
 using System.Text.RegularExpressions;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.Xml.Serialization;
 
 namespace VPU111_CSharp
 {
@@ -223,6 +225,145 @@ namespace VPU111_CSharp
             Console.OutputEncoding = Encoding.Unicode;
             //Console.
 
+
+            //// 18.12.2022  ///////
+            ///
+
+
+            Student st = new Student
+            {
+                FirstName = "Oleg III",
+                LastName = "Ivanov",
+                BirthDay = new DateTime(1990, 2, 12),
+                StudentCard = new StudentCard
+                {
+                    Series = "AB",
+                    Number = 123456
+                }
+            };
+
+            List<Student> students = new List<Student>()
+            {
+                new Student
+                {
+                    FirstName = "Oleg",
+                    LastName = "Ivanov",
+                    BirthDay = new DateTime(1990, 2, 12),
+                    StudentCard = new StudentCard
+                    {
+                        Series = "AB",
+                        Number = 123456
+                    }
+                },
+                new Student
+                {
+                    FirstName = "Olga",
+                    LastName = "Petrova",
+                    BirthDay = new DateTime(1990, 1, 4),
+                    StudentCard = new StudentCard
+                    {
+                        Series = "AB",
+                        Number = 123450
+                    }
+                },
+                new Student
+                {
+                    FirstName = "Petro",
+                    LastName = "Fedoriv",
+                    BirthDay = new DateTime(1993, 1, 14),
+                    StudentCard = new StudentCard
+                    {
+                        Series = "AC",
+                        Number = 123456
+                    }
+                },
+                new Student
+                {
+                    FirstName = "Irina",
+                    LastName = "Frolova",
+                    BirthDay = new DateTime(1983, 5, 8),
+                    StudentCard = new StudentCard
+                    {
+                        Series = "AA",
+                        Number = 123456
+                    }
+                }
+            };
+
+            //Dictionary<string, Student> dic = new Dictionary<string, Student>();
+            //dic.Add("one", st);
+
+            //XmlSerializer xml = new XmlSerializer(typeof(List<Student>));
+            //using (Stream stream =
+            //File.Create("stud.xml"))
+            //{
+            //    xml.Serialize(stream, students);
+            //}
+
+            //List<Student> list;
+            //using (Stream stream = File.OpenRead("stud.xml"))
+            //{
+            //    list = (List<Student>)xml.Deserialize(stream);
+            //}
+
+            //foreach (var item in list)
+            //{
+            //    Console.WriteLine(item);
+            //}
+
+
+            Point p = new Point() { X = 10, Y = 12 };
+            XmlSerializer xml = new XmlSerializer(typeof(Point));
+            using (Stream stream =
+            File.Create("point.xml"))
+            {
+                xml.Serialize(stream, p);
+            }
+
+
+
+            //BinaryFormatter bf = new BinaryFormatter();
+            //using (Stream stream = File.Create("point.bin"))
+            //{
+            //    bf.Serialize(stream, p);
+            //}
+
+            //p = null;
+            //using (Stream stream = File.OpenRead("point.bin"))
+            //{
+            //    p = (Point)bf.Deserialize(stream);
+            //}
+
+            p.Print();
+
+            //Student st1;
+            //List<Student> list;
+            //using (Stream stream = File.OpenRead("stud.bin"))
+            //{
+            //    list = (List<Student>)bf.Deserialize(stream);
+            //}
+
+            //foreach (var item in list)
+            //{
+            //    Console.WriteLine(item);
+            //}
+
+            //Console.WriteLine(st1);
+
+            //foreach (var item in typeof(StudentCard).GetCustomAttributes(false))
+            //{
+            //    Console.WriteLine(item);
+            //}
+
+            //foreach (var item in typeof(StudentCard).GetMethods())
+            //{
+            //    Console.Write(item + ": ");
+            //    foreach (var attr in item.GetCustomAttributes(false))
+            //    {
+            //        Console.WriteLine(attr);
+            //    }
+            //}
+
             //   .
             //   \w
             //   \W
@@ -242,18 +383,19 @@ namespace VPU111_CSharp
             //   $
 
 
-            string patternInt = @"^(\d)+$";
-            string patternDouble = @"^(\d)+[.,]?(\d){1,7}$";
-            string patternPhone = @"^\+38\(0(50)|(66)\)(\d){3}\-(\d){2}\-(\d){2}$";
-            string patternName = @"^[A-Z][a-z]*(-[A-Z][a-z]*)*$";
+            //string patternInt = @"^(\d)+$";
+            //string patternDouble = @"^(\d)+[.,]?(\d){1,7}$";
+            //string patternPhone = @"^\+38\(0(50)|(66)\)(\d){3}\-(\d){2}\-(\d){2}$";
+            //string patternName = @"^[A-Z][a-z]*(-[A-Z][a-z]*){0,4}$";
 
 
-            Regex regex = new Regex(patternName);
-            while(true)
-            {
-                bool res = regex.IsMatch(Console.ReadLine());
-                Console.WriteLine(res?"Correct":"Not correct");
-            }
+            //Regex regex = new Regex(patternName);
+            //while(true)
+            //{
+
+            //    bool res = regex.IsMatch(Console.ReadLine());
+            //    Console.WriteLine(res?"Correct":"Not correct");
+            //}
 
             ////// 11.12.2022 //////////
             ///
@@ -426,53 +568,53 @@ namespace VPU111_CSharp
             ///
 
 
-            List<Student> students = new List<Student>()
-            {
-                new Student
-                {
-                    FirstName = "Oleg",
-                    LastName = "Ivanov",
-                    BirthDay = new DateTime(1990, 2, 12),
-                    StudentCard = new StudentCard
-                    {
-                        Series = "AB",
-                        Number = 123456
-                    }
-                },
-                new Student
-                {
-                    FirstName = "Olga",
-                    LastName = "Petrova",
-                    BirthDay = new DateTime(1990, 1, 4),
-                    StudentCard = new StudentCard
-                    {
-                        Series = "AB",
-                        Number = 123450
-                    }
-                },
-                new Student
-                {
-                    FirstName = "Petro",
-                    LastName = "Fedoriv",
-                    BirthDay = new DateTime(1993, 1, 14),
-                    StudentCard = new StudentCard
-                    {
-                        Series = "AC",
-                        Number = 123456
-                    }
-                },
-                new Student
-                {
-                    FirstName = "Irina",
-                    LastName = "Frolova",
-                    BirthDay = new DateTime(1983, 5, 8),
-                    StudentCard = new StudentCard
-                    {
-                        Series = "AA",
-                        Number = 123456
-                    }
-                }
-            };
+            //List<Student> students = new List<Student>()
+            //{
+            //    new Student
+            //    {
+            //        FirstName = "Oleg",
+            //        LastName = "Ivanov",
+            //        BirthDay = new DateTime(1990, 2, 12),
+            //        StudentCard = new StudentCard
+            //        {
+            //            Series = "AB",
+            //            Number = 123456
+            //        }
+            //    },
+            //    new Student
+            //    {
+            //        FirstName = "Olga",
+            //        LastName = "Petrova",
+            //        BirthDay = new DateTime(1990, 1, 4),
+            //        StudentCard = new StudentCard
+            //        {
+            //            Series = "AB",
+            //            Number = 123450
+            //        }
+            //    },
+            //    new Student
+            //    {
+            //        FirstName = "Petro",
+            //        LastName = "Fedoriv",
+            //        BirthDay = new DateTime(1993, 1, 14),
+            //        StudentCard = new StudentCard
+            //        {
+            //            Series = "AC",
+            //            Number = 123456
+            //        }
+            //    },
+            //    new Student
+            //    {
+            //        FirstName = "Irina",
+            //        LastName = "Frolova",
+            //        BirthDay = new DateTime(1983, 5, 8),
+            //        StudentCard = new StudentCard
+            //        {
+            //            Series = "AA",
+            //            Number = 123456
+            //        }
+            //    }
+            //};
 
 
             //var stud = from s in students
